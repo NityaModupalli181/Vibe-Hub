@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Vibe Hub</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>✨</text></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,700;1,9..144,500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <!-- Motivational quotes — rotate every 10 seconds -->
+  <div class="quote-bar" aria-live="polite">
+    <span class="spark">✦</span>
+    <div class="quote-text" id="quoteText">Loading inspiration…</div>
+    <span class="spark">✦</span>
+    <div class="quote-progress" id="quoteProgress"></div>
+  </div>
+
+  <header class="topnav">
+    <a class="brand" href="#/home"><span class="brand-mark">✦</span> Vibe Hub</a>
+    <nav class="nav-links">
+      <a href="#/solo" data-nav="solo">Solo</a>
+      <a href="#/group" data-nav="group">Group</a>
+      <a href="#/saved" data-nav="saved">Saved</a>
+      <div class="user-chip">
+        <span id="navUser" class="small" style="font-weight:600">…</span>
+        <button class="btn small soft" id="logoutBtn">Log out</button>
+      </div>
+    </nav>
+  </header>
+
+  <main id="view" aria-live="polite"></main>
+
+  <!-- ===== Doodle view template ===== -->
+  <template id="tpl-doodle">
+    <div class="crumbs"><a href="#/solo">← Solo activities</a></div>
+    <div class="doodle-prompt">
+      <div>
+        <div class="eyebrow">Doodle of the day · <span data-day></span></div>
+        <h2 data-prompt>…</h2>
+        <p class="tip" data-tip></p>
+      </div>
+      <div class="tool-row">
+        <button class="btn soft small" data-timer>⏱ 5-min challenge</button>
+      </div>
+    </div>
+
+    <div class="doodle-layout">
+      <div class="canvas-wrap">
+        <canvas id="doodleCanvas" width="1200" height="900" aria-label="Drawing canvas"></canvas>
+      </div>
+      <div class="tools">
+        <div class="card">
+          <h4>Colour</h4>
+          <div class="colors" data-colors></div>
+          <input type="color" data-custom value="#1f1b2e" style="width:100%;margin-top:10px;height:34px;border:0;background:none" aria-label="Custom colour">
+        </div>
+        <div class="card">
+          <h4>Brush · <span data-size-label>6</span>px</h4>
+          <input type="range" min="1" max="40" value="6" data-size aria-label="Brush size">
+          <div class="tool-row" style="margin-top:10px">
+            <button class="btn soft small tool-btn active" data-tool="pen">✏️ Pen</button>
+            <button class="btn soft small tool-btn" data-tool="eraser">🧽 Eraser</button>
+          </div>
+        </div>
+        <div class="card">
+          <h4>Actions</h4>
+          <div class="tool-row">
+            <button class="btn soft small" data-undo>↶ Undo</button>
+            <button class="btn soft small" data-clear>🗑 Clear</button>
+          </div>
+          <div class="tool-row" style="margin-top:8px">
+            <button class="btn small" data-save>💾 Save</button>
+            <button class="btn soft small" data-download>⬇ PNG</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <section class="section-gap">
+      <h2>Today's community doodles</h2>
+      <p class="muted">See how everyone else drew today's prompt.</p>
+      <div class="gallery" data-community></div>
+    </section>
+    <section class="section-gap">
+      <h2>My doodles</h2>
+      <div class="gallery" data-mine></div>
+    </section>
+  </template>
+
+  <!-- ===== Group chat view template ===== -->
+  <template id="tpl-chat">
+    <div class="crumbs"><a href="#/group">← All group activities</a></div>
+    <div class="mobile-tabs chips">
+      <button class="chip active" data-mtab="chat">💬 Chat</button>
+      <button class="chip" data-mtab="people">👥 People</button>
+      <button class="chip" data-mtab="plans">📅 Plans</button>
+    </div>
+    <div class="chat-shell" data-tab="chat">
+      <aside class="chat-side">
+        <div class="room-emoji" data-emoji></div>
+        <h3 data-name></h3>
+        <p class="small muted" data-blurb></p>
+        <div class="countdown">
+          Today's group resets in
+          <b data-countdown>--:--:--</b>
+          <span class="small muted">A fresh chat starts every day at midnight.</span>
+        </div>
+        <h4 class="small muted" style="text-transform:uppercase;letter-spacing:.1em">Online now · <span data-online-count>0</span></h4>
+        <ul class="members" data-members></ul>
+      </aside>
+
+      <section class="chat-main">
+        <div class="chat-header">
+          <div><b data-title></b> <span class="small muted" data-day></span></div>
+          <span class="conn" data-conn>Connected</span>
+        </div>
+        <div class="messages" data-messages></div>
+        <div class="typing" data-typing></div>
+        <div class="quick-replies" data-quick></div>
+        <form class="composer" data-composer>
+          <textarea class="input" rows="1" maxlength="1000" placeholder="Say hi and suggest a time…" data-input aria-label="Message"></textarea>
+          <button class="btn coral" type="submit">Send</button>
+        </form>
+      </section>
+
+      <aside class="chat-plans">
+        <h3>📅 Plan a meetup</h3>
+        <p class="small muted">Propose a time & place — everyone can RSVP.</p>
+        <form class="plan-form" data-plan-form>
+          <input class="input" name="title" maxlength="80" placeholder="What? e.g. Doubles match" required>
+          <input class="input" name="place" maxlength="80" placeholder="Where? e.g. City sports centre" required>
+          <input class="input" name="time" maxlength="40" placeholder="When? e.g. 6:30 pm today" required>
+          <button class="btn small" type="submit">Propose plan</button>
+        </form>
+        <div data-plans></div>
+      </aside>
+    </div>
+  </template>
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="/js/common.js"></script>
+  <script src="/js/doodle.js"></script>
+  <script src="/js/chat.js"></script>
+  <script src="/js/app.js"></script>
+</body>
+</html>

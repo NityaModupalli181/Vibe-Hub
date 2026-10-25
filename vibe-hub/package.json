@@ -1,0 +1,24 @@
+{
+  "name": "vibe-hub",
+  "version": "1.0.0",
+  "description": "Solo & group activity hub: daily doodles, recipes, reading, makeup inspo, and daily group chats for sports & fitness.",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js",
+    "reset-db": "node scripts/reset-db.js"
+  },
+  "engines": {
+    "node": "22.x"
+  },
+  "license": "MIT",
+  "author": "Vibe Hub team",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "better-sqlite3": "^12.4.1",
+    "cookie-parser": "^1.4.7",
+    "express": "^4.21.2",
+    "jsonwebtoken": "^9.0.2",
+    "socket.io": "^4.8.1"
+  }
+}

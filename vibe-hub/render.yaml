@@ -1,0 +1,17 @@
+# One-click deploy on Render (free plan).
+# On render.com: New + -> Blueprint -> pick this repo -> Apply.
+services:
+  - type: web
+    name: vibe-hub
+    runtime: node
+    plan: free
+    buildCommand: npm install
+    startCommand: npm start
+    healthCheckPath: /healthz
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: JWT_SECRET
+        generateValue: true
+      - key: TZ
+        value: America/Los_Angeles # change to your time zone: groups reset at midnight in this zone

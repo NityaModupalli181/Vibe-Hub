@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Vibe Hub — Log in</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>✨</text></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,700;1,9..144,500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <div class="quote-bar" aria-live="polite">
+    <span class="spark">✦</span>
+    <div class="quote-text" id="quoteText">Loading inspiration…</div>
+    <span class="spark">✦</span>
+    <div class="quote-progress" id="quoteProgress"></div>
+  </div>
+
+  <div class="auth-wrap">
+    <section class="auth-hero">
+      <a class="brand" href="/"><span class="brand-mark">✦</span> Vibe Hub</a>
+      <h1>Do something you love, <em>alone</em> or <em>together.</em></h1>
+      <p class="muted" style="font-size:1.1rem;max-width:520px">
+        Draw the doodle of the day, cook a new recipe, read a story, find makeup inspo —
+        or jump into today's group chat to plan a game of badminton with people who want to play right now.
+      </p>
+      <div class="hero-tags">
+        <span>✏️ Doodles</span><span>🍳 Recipes</span><span>📖 Reading</span><span>💄 Makeup</span>
+        <span>🏸 Badminton</span><span>⚽ Football</span><span>🏋️ Gym</span><span>💃 Dance</span>
+      </div>
+    </section>
+
+    <section class="auth-panel">
+      <div class="card auth-card">
+        <div class="tabs" role="tablist">
+          <button class="active" data-tab="login" role="tab">Log in</button>
+          <button data-tab="register" role="tab">Create account</button>
+        </div>
+
+        <div id="authError" class="alert error hidden" role="alert"></div>
+
+        <form id="loginForm" autocomplete="on">
+          <h2>Welcome back 👋</h2>
+          <p class="muted">Log in to pick up where you left off.</p>
+          <div class="field">
+            <label for="loginId">Username or email</label>
+            <input class="input" id="loginId" name="login" autocomplete="username" required>
+          </div>
+          <div class="field">
+            <label for="loginPw">Password</label>
+            <input class="input" id="loginPw" name="password" type="password" autocomplete="current-password" required>
+          </div>
+          <button class="btn" type="submit" style="width:100%">Log in</button>
+        </form>
+
+        <form id="registerForm" class="hidden" autocomplete="on">
+          <h2>Join Vibe Hub ✨</h2>
+          <p class="muted">It takes 20 seconds.</p>
+          <div class="field">
+            <label for="regUser">Username</label>
+            <input class="input" id="regUser" name="username" autocomplete="username" required minlength="3" maxlength="20" pattern="[A-Za-z0-9_]+" title="Letters, numbers and underscores">
+          </div>
+          <div class="field">
+            <label for="regEmail">Email</label>
+            <input class="input" id="regEmail" name="email" type="email" autocomplete="email" required>
+          </div>
+          <div class="field">
+            <label for="regPw">Password</label>
+            <input class="input" id="regPw" name="password" type="password" autocomplete="new-password" required minlength="6">
+            <span class="small muted">At least 6 characters.</span>
+          </div>
+          <button class="btn coral" type="submit" style="width:100%">Create account</button>
+        </form>
+      </div>
+    </section>
+  </div>
+
+  <script src="/js/common.js"></script>
+  <script src="/js/auth.js"></script>
+</body>
+</html>
