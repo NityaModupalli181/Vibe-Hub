@@ -17,7 +17,7 @@ A web app where people sign up, log in, and pick something to do — **alone** o
 - **Motivational quote banner** at the top of every page, changing every **10 seconds**.
 - **SQLite database** (users, quotes, doodles, recipes, readings, looks, favourites, chat messages, reactions, meetups, RSVPs).
 
-## Run it
+## Run it!
 
 Requires **Node.js 18 or newer** (20+ recommended).
 
